@@ -15,8 +15,7 @@ class NameWidget extends StatelessWidget {
       text: TextSpan(
           children: [
             TextSpan(text: namePartitions[0].toUpperCase(), style: style),
-            if (namePartitions.length > 1)
-              TextSpan(text: "\n${namePartitions[1].toUpperCase()}", style: style),
+            namePartitions.length > 1 ? TextSpan(text: "\n${namePartitions[1].toUpperCase()}", style: style) : null,
           ]
       ),
     );

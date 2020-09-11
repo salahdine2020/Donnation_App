@@ -54,10 +54,9 @@ class _SearchCentersDelegateListState extends State<SearchCentersDelegateList> {
             icon: Icon(Icons.search),
             onPressed: () {
               showSearch(
-                  context: context,
-                  delegate: DataSearchRequestFire(
-
-                  ));
+                context: context,
+                delegate: DataSearchRequestFire(),
+              );
             },
           ),
         ],
@@ -109,7 +108,6 @@ class DataSearchRequestFire extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-
     return buildStreamBuilder();
   }
 
@@ -119,10 +117,10 @@ class DataSearchRequestFire extends SearchDelegate<String> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) return new Text('Loading...');
 
-        final bloodearch = snapshot.data.documents.where(
-                (DocumentSnapshot a) => a.data['bloodrange'].toString().contains(query));
+        final bloodearch = snapshot.data.documents.where((DocumentSnapshot a) =>
+            a.data['bloodrange'].toString().contains(query));
         final locationsearch = snapshot.data.documents.where(
-                (DocumentSnapshot a) =>
+            (DocumentSnapshot a) =>
                 a.data['location'].toString().contains(query));
 
         var wid1 = donnerschoice == 'bloodrange' ? bloodearch : locationsearch;
@@ -130,32 +128,32 @@ class DataSearchRequestFire extends SearchDelegate<String> {
         var res = wid1
             .map<Widget>(
               (a) => Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Expanded(
-                  child: ListTile(
-                    title: Text(
-                      a.data['location'].toString(),
-                      style: nameStyle,
-                    ),
-                    subtitle: Text(
-                      a.data['bloodrange'].toString(),
-                    ),
-                    leading: CircleAvatar(
-                      child: Image.asset(
-                        Assets.blood_request,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child: ListTile(
+                        title: Text(
+                          a.data['location'].toString(),
+                          style: nameStyle,
+                        ),
+                        subtitle: Text(
+                          a.data['bloodrange'].toString(),
+                        ),
+                        leading: CircleAvatar(
+                          child: Image.asset(
+                            Assets.blood_request,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        )
+              ),
+            )
             .toList();
         return ListView(
           children: res,

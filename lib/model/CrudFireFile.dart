@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 class CrudFire
   {
   final MedicalCenterList = Firestore.instance.collection('medicalecenter');

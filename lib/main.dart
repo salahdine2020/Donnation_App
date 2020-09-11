@@ -4,11 +4,12 @@ import 'package:crudfirebaseapp/screens_user/UserHomeScreen.dart';
 import 'package:crudfirebaseapp/widget/statecontaineruser.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'BouttomNavigation_Bar/Bouttom_Navigation_bar_center.dart';
 import 'BouttomNavigation_Bar/Bouttom_Navigation_bar_user.dart';
 
 void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String seen = prefs.getString('seen');
   Widget screen = UserRegistration();
@@ -52,10 +53,10 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Simple Animations',
       theme: ThemeData.fallback(),
-      home:
-      this.screen,
+      home: this.screen,
     );
   }
 }

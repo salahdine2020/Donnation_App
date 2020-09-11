@@ -54,10 +54,9 @@ class _SearchCentersDelegateListState extends State<SearchCentersDelegateList> {
             icon: Icon(Icons.search),
             onPressed: () {
               showSearch(
-                  context: context,
-                  delegate: DataSearchDonnerFire(
-
-                  ));
+                context: context,
+                delegate: DataSearchDonnerFire(),
+              );
             },
           ),
         ],
@@ -109,7 +108,6 @@ class DataSearchDonnerFire extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-
     return buildStreamBuilder();
   }
 
@@ -120,42 +118,41 @@ class DataSearchDonnerFire extends SearchDelegate<String> {
         if (!snapshot.hasData) return new Text('Loading...');
 
         final bloodearch = snapshot.data.documents.where(
-                (DocumentSnapshot a) => a.data['rang'].toString().contains(query));
+            (DocumentSnapshot a) => a.data['rang'].toString().contains(query));
         final sexsearch = snapshot.data.documents.where(
-                (DocumentSnapshot a) =>
-                a.data['sex'].toString().contains(query));
+            (DocumentSnapshot a) => a.data['sex'].toString().contains(query));
 
         var wid1 = donnerschoice == 'blood' ? bloodearch : sexsearch;
 
         var res = wid1
             .map<Widget>(
               (a) => Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Expanded(
-                  child: ListTile(
-                    title: Text(
-                      a.data['name'].toString(),
-                      style: nameStyle,
-                    ),
-                    subtitle: Text(
-                      a.data['sex'].toString(),
-                    ),
-                    leading: CircleAvatar(
-                      child: Image.asset(
-                        Assets.womenpic,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child: ListTile(
+                        title: Text(
+                          a.data['name'].toString(),
+                          style: nameStyle,
+                        ),
+                        subtitle: Text(
+                          a.data['sex'].toString(),
+                        ),
+                        leading: CircleAvatar(
+                          child: Image.asset(
+                            Assets.womenpic,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        )
+              ),
+            )
             .toList();
         return ListView(
           children: res,

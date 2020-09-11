@@ -53,10 +53,11 @@ class _SearchCentersDelegateListState extends State<SearchCentersDelegateList> {
             icon: Icon(Icons.search),
             onPressed: () {
               showSearch(
-                  context: context,
-                  delegate: DataSearchFire(
-                    centerschoice: dropdownValue,
-                  ));
+                context: context,
+                delegate: DataSearchFire(
+                  centerschoice: dropdownValue,
+                ),
+              );
             },
           ),
         ],
@@ -67,7 +68,6 @@ class _SearchCentersDelegateListState extends State<SearchCentersDelegateList> {
 
 class DataSearchFire extends SearchDelegate<String> {
   String centerschoice;
-
 
   DataSearchFire({
     this.centerschoice,
@@ -110,63 +110,62 @@ class DataSearchFire extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // map the resule search realtime
-
     return buildStreamBuilder();
   }
 
   StreamBuilder<QuerySnapshot> buildStreamBuilder() {
     return StreamBuilder(
-    stream: Firestore.instance.collection('medicalecenter').snapshots(),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) return new Text('Loading...');
+      stream: Firestore.instance.collection('medicalecenter').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return new Text('Loading...');
 
-      final locationsearch = snapshot.data.documents.where(
-          (DocumentSnapshot a) =>
-              a.data['Adrress'].toString().contains(query));
-      final namesearch = snapshot.data.documents.where(
-          (DocumentSnapshot a) => a.data['name'].toString().contains(query));
-      final specialitysearch = snapshot.data.documents.where(
-          (DocumentSnapshot a) =>
-              a.data['speciality'].toString().contains(query));
+        final locationsearch = snapshot.data.documents.where(
+            (DocumentSnapshot a) =>
+                a.data['Adrress'].toString().contains(query));
+        final namesearch = snapshot.data.documents.where(
+            (DocumentSnapshot a) => a.data['name'].toString().contains(query));
+        final specialitysearch = snapshot.data.documents.where(
+            (DocumentSnapshot a) =>
+                a.data['speciality'].toString().contains(query));
 
-      var wid1 = centerschoice == 'name' ? namesearch : locationsearch;
+        var wid1 = centerschoice == 'name' ? namesearch : locationsearch;
 
-      var res = wid1
-          .map<Widget>(
-            (a) => Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child: ListTile(
-                      title: Text(
-                        a.data['name'].toString(),
-                        style: nameStyle,
-                      ),
-                      subtitle: Text(
-                        a.data['speciality'].toString() +
-                            '\n' +
-                            a.data['Adrress'].toString(),
-                      ),
-                      leading: CircleAvatar(
-                        child: Image.asset(
-                          Assets.clinique,
+        var res = wid1
+            .map<Widget>(
+              (a) => Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child: ListTile(
+                        title: Text(
+                          a.data['name'].toString(),
+                          style: nameStyle,
+                        ),
+                        subtitle: Text(
+                          a.data['speciality'].toString() +
+                              '\n' +
+                              a.data['Adrress'].toString(),
+                        ),
+                        leading: CircleAvatar(
+                          child: Image.asset(
+                            Assets.clinique,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
-          .toList();
-      return ListView(
-        children: res,
-      );
-    },
-  );
+            )
+            .toList();
+        return ListView(
+          children: res,
+        );
+      },
+    );
   }
 }

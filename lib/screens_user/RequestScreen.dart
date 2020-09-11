@@ -57,9 +57,10 @@ class _RequestFromCentersState extends State<RequestFromCenters> {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return Center(
-                child: CircularProgressIndicator(
-              backgroundColor: Colors.redAccent,
-            ));
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.redAccent,
+              ),
+            );
           default:
             return Scaffold(
               appBar: AppBar(
@@ -88,10 +89,11 @@ class _RequestFromCentersState extends State<RequestFromCenters> {
                         ),
                         onPressed: () {
                           showSearch(
-                              context: context,
-                              delegate: DataSearchRequestFire(
-                                donnerschoice: dropdownValue,
-                              ));
+                            context: context,
+                            delegate: DataSearchRequestFire(
+                              donnerschoice: dropdownValue,
+                            ),
+                          );
                         },
                       ),
                     ],

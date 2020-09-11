@@ -9,10 +9,10 @@ class Article {
   final String description;
 
   Article(
-      {@required this.name,
-        @required this.occupation,
-        @required this.imagePath,
-        @required this.description});
+      { this.name,
+         this.occupation,
+         this.imagePath,
+         this.description});
 }
 
 Article firstArticle = Article(

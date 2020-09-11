@@ -6,7 +6,7 @@ import 'package:crudfirebaseapp/widget/app_drawer.dart';
 import 'package:crudfirebaseapp/widget/statecontaineruser.dart';
 import 'package:crudfirebaseapp/widget/userinf.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -166,7 +166,7 @@ class SocialBox extends StatelessWidget {
         decoration: nMboxInvert,
         child: Row(
           children: <Widget>[
-            FaIcon(icon, color: Colors.pink.shade800, size: 20),
+            //FaIcon(icon, color: Colors.pink.shade800, size: 20),
             SizedBox(width: 8),
             definition,
           ],
